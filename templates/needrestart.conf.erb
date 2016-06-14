@@ -1,0 +1,96 @@
+# needrestart - Restart daemons after library updates.
+#
+# Authors:
+#   Thomas Liske <thomas@fiasko-nw.net>
+#
+# Copyright Holder:
+#   2013 - 2014 (C) Thomas Liske [http://fiasko-nw.net/~thomas/]
+#
+# License:
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+
+# This is the configuration file of needrestart. This is perl syntax.
+# needrstart uses reasonable default values, you might not need to
+# change anything.
+
+# Be more verbose (-v).
+#$nrconf{verbose} = 1;
+
+# Path of the package manager hook scripts.
+#$nrconf{hook_d} = '/etc/needrestart/hook.d';
+
+# Restart services (l)ist only, (i)nteractive or (a)utomatically.
+$nrconf{restart} = '<%= @action.chars.first %>';
+
+# Use prefered UI package.
+$nrconf{ui} = 'NeedRestart::UI::stdio';
+
+# Change default answer to 'no' in (i)nteractive mode.
+#$nrconf{defno} = 1;
+
+# Blacklist binaries (list of regex).
+$nrconf{blacklist} = [
+    # ignore sudo (not a daemon)
+    q(^/usr/bin/sudo(\.dpkg-new)?$),
+
+    # ignore DHCP clients
+    q(^/sbin/(dhclient|dhcpcd5|pump|udhcpc)(\.dpkg-new)?$),
+];
+
+# Blacklist services (list of regex) - USE WITH CARE.
+# You should prefere to put services to $nrconf{override_rc} instead.
+# Any service listed in $nrconf{blacklist_rc} we be ignored completely!
+#$nrconf{blacklist_rc} = [
+#];
+
+# Override service default selection (hash of regex).
+$nrconf{override_rc} = {
+    # DBus
+    q(^dbus) => 0,
+
+    # display managers
+    q(^gdm) => 0,
+    q(^kdm) => 0,
+    q(^nodm) => 0,
+    q(^wdm) => 0,
+    q(^xdm) => 0,
+    q(^lightdm) => 0,
+
+    # networking stuff
+    q(^network-manager) => 0,
+    q(^NetworkManager) => 0,
+    q(^wpa_supplicant) => 0,
+    q(^openvpn) => 0,
+    q(^quagga) => 0,
+    q(^tinc) => 0,
+
+    # gettys
+    q(^getty@.+\.service) => 0,
+
+    # misc
+    q(^zfs-fuse) => 0,
+    q(^mythtv-backend) => 0,
+
+    # workaround for broken systemd-journald
+    # (see also Debian Bug#771122 & #771254)
+    q(^systemd-journald) => 0,
+};
+
+# Disable interpreter scanners.
+#$nrconf{interpscan} = 0;
+
+# Disable hints on pending kernel upgrades.
+$nrconf{kernelhints} = 0;
+
+# Read additional config snippets.
+if(-d q(/etc/needrestart/conf.d)) {
+      foreach my $fn (sort </etc/needrestart/conf.d/*.conf>) {
+	      print STDERR "$LOGPREF eval $fn\n" if($nrconf{verbose});
+	      eval do { local(@ARGV, $/) = $fn; <>};
+	      die "Error parsing $fn: $@" if($@);
+      }
+}
