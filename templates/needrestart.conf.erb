@@ -38,7 +38,7 @@
 $nrconf{restart} = '<%= @action.chars.first %>';
 
 # Use prefered UI package.
-$nrconf{ui} = 'NeedRestart::UI::stdio';
+$nrconf{ui} = 'NeedRestart::UI::<%= @preferred_ui %>';
 
 # Change default answer to 'no' in (i)nteractive mode.
 #$nrconf{defno} = 1;
@@ -124,7 +124,12 @@ $nrconf{override_rc} = {
 #  1: requires the user to acknowledge pending kernels
 #  0: disable kernel checks completely
 # -1: print kernel hints to stderr only
+<% if @disable_kernel_hints == true -%>
 $nrconf{kernelhints} = 0;
+<% else -%>
+$nrcon{kernelhints} = 1;
+<% end -%>
+
 
 # Read additional config snippets.
 if(-d q(/etc/needrestart/conf.d)) {
