@@ -78,6 +78,17 @@ $nrconf{override_rc} = {
     # workaround for broken systemd-journald
     # (see also Debian Bug#771122 & #771254)
     q(^systemd-journald) => 0,
+
+
+
+    ## start local changes
+<% @ignorelist.each do | name, services | -%>
+    #<%= name %>
+<% services.sort.each do | service | -%>
+    q(^<%= service %>) => 0,
+<% end -%>
+<% end -%>
+    ## end local changes
 };
 
 # Disable interpreter scanners.
