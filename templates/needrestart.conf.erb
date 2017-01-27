@@ -33,6 +33,12 @@
 # Disable sending notifications to user sessions running obsolete binaries
 # using scripts from $nrconf{notify_d}.
 #$nrconf{sendnotify} = 0;
+<% if @notify_user_obsolete_binaries == true -%>
+$nrconf{sendnotify} = 1;
+<% else -%>
+$nrconf{sendnotify} = 0;
+<% end -%>
+
 
 # Restart services (l)ist only, (i)nteractive or (a)utomatically.
 $nrconf{restart} = '<%= @action.chars.first %>';
