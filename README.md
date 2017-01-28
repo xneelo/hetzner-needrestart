@@ -55,6 +55,11 @@ Boolean to specify if hints on pending kernel upgrades are hidden or not. Possib
 * __true__ (default)
 * false
 
+### notify_user_obsolete_binaries
+Boolean to specify if a user is notified about obsolete binaries in his session or not. Possible values are:
+* __true__ (default)
+* false
+
 ### package_ensure
 String for ensure parameter to the needrestart package. Default value is "__installed__".
 
