@@ -68,5 +68,5 @@ String to specify the package name. Default value is "__needrestart__".
 
 
 ## Limitations
-Only tested on Debian and Ubuntu
+Only tested on Debian 7.0 and Ubuntu >= 14.04
 
