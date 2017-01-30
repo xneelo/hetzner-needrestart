@@ -28,7 +28,7 @@ class needrestart(
   }
 
   if $_install {
-    include install
-    include config
+    include needrestart::install
+    include needrestart::config
   }
 }
