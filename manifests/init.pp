@@ -8,6 +8,7 @@ class needrestart(
   $package_name                  = $needrestart::params::package_name,
 ) inherits needrestart::params {
 
+
   $install = false
 
   case $::operatingsystem {
