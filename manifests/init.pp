@@ -12,21 +12,22 @@ class needrestart(
 
   case $::operatingsystem {
     'Debian': {
-      $install = true
+      $_install = true
     }
 
     'Ubuntu': {
       if versioncmp($::lsbdistrelease, '14.04') >= 0 {
-        $install = true
+        $_install = true
       }
     }
 
     default: {
+        $_install = $install
       notice ("Your operating system ${::operatingsystem} is not supported by this module")
     }
   }
 
-  if $install {
+  if $_install {
     include install
     include config
   }
