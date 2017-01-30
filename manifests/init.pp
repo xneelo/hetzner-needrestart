@@ -8,26 +8,28 @@ class needrestart(
   $package_name                  = $needrestart::params::package_name,
 ) inherits needrestart::params {
 
+
   $install = false
 
   case $::operatingsystem {
     'Debian': {
-      $install = true
+      $_install = true
     }
 
     'Ubuntu': {
       if versioncmp($::lsbdistrelease, '14.04') >= 0 {
-        $install = true
+        $_install = true
       }
     }
 
     default: {
+        $_install = $install
       notice ("Your operating system ${::operatingsystem} is not supported by this module")
     }
   }
 
-  if $install {
-    include install
-    include config
+  if $_install {
+    include needrestart::install
+    include needrestart::config
   }
 }
