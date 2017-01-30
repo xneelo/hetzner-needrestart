@@ -110,17 +110,6 @@ $nrconf{override_rc} = {
 
     # don't restart systemd-logind, see #798097
     q(^systemd-logind) => 0,
-
-
-
-    ## start local changes
-<% @ignorelist.each do | name, services | -%>
-    #<%= name %>
-<% services.sort.each do | service | -%>
-    q(^<%= service %>) => 0,
-<% end -%>
-<% end -%>
-    ## end local changes
 };
 
 # Disable interpreter scanners.
