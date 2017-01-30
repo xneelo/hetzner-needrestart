@@ -5,6 +5,6 @@ class needrestart(
   $package_name   = $needrestart::params::package_name,
 ) inherits needrestart::params {
 
-  include install
-  include config
+  include needrestart::install
+  include needrestart::config
 }
