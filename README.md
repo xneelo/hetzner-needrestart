@@ -34,6 +34,24 @@ class { 'needrestart':
 }
 ```
 
+Another hiera example:
+```
+---
+classes:
+  - needrestart
+
+needrestart::action: 'interactive'
+needrestart::disable_kernel_hints: false
+needrestart::notify_user_obsolete_binaries: true
+needrestart::preferred_ui: 'debconf'
+needrestart::ignorelist:
+  'Virtualization':
+    - 'libvirt-bin'
+  'Applications'
+    - 'tomcat8'
+```
+
+
 
 ## Parameters
 ### action
