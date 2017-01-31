@@ -1,10 +1,11 @@
+
 # needrestart - Restart daemons after library updates.
 #
 # Authors:
 #   Thomas Liske <thomas@fiasko-nw.net>
 #
 # Copyright Holder:
-#   2013 - 2014 (C) Thomas Liske [http://fiasko-nw.net/~thomas/]
+#   2013 - 2015 (C) Thomas Liske [http://fiasko-nw.net/~thomas/]
 #
 # License:
 #   This program is free software; you can redistribute it and/or modify
@@ -17,17 +18,33 @@
 # needrstart uses reasonable default values, you might not need to
 # change anything.
 
-# Be more verbose (-v).
-#$nrconf{verbose} = 1;
+# Verbosity:
+#  0 => quiet
+#  1 => normal (default)
+#  2 => verbose
+#$nrconf{verbosity} = 2;
 
 # Path of the package manager hook scripts.
 #$nrconf{hook_d} = '/etc/needrestart/hook.d';
+
+# Path of user notification scripts.
+#$nrconf{notify_d} = '/etc/needrestart/notify.d';
+
+# Disable sending notifications to user sessions running obsolete binaries
+# using scripts from $nrconf{notify_d}.
+#$nrconf{sendnotify} = 0;
+<% if @notify_user_obsolete_binaries == true -%>
+$nrconf{sendnotify} = 1;
+<% else -%>
+$nrconf{sendnotify} = 0;
+<% end -%>
+
 
 # Restart services (l)ist only, (i)nteractive or (a)utomatically.
 $nrconf{restart} = '<%= @action.chars.first %>';
 
 # Use prefered UI package.
-$nrconf{ui} = 'NeedRestart::UI::stdio';
+$nrconf{ui} = 'NeedRestart::UI::<%= @preferred_ui %>';
 
 # Change default answer to 'no' in (i)nteractive mode.
 #$nrconf{defno} = 1;
@@ -39,6 +56,9 @@ $nrconf{blacklist} = [
 
     # ignore DHCP clients
     q(^/sbin/(dhclient|dhcpcd5|pump|udhcpc)(\.dpkg-new)?$),
+
+    # ignore apt-get (Debian Bug#784237)
+    q(^/usr/bin/apt-get(\.dpkg-new)?$),
 ];
 
 # Blacklist services (list of regex) - USE WITH CARE.
@@ -56,6 +76,7 @@ $nrconf{override_rc} = {
     q(^gdm) => 0,
     q(^kdm) => 0,
     q(^nodm) => 0,
+    q(^sddm) => 0,
     q(^wdm) => 0,
     q(^xdm) => 0,
     q(^lightdm) => 0,
@@ -71,6 +92,9 @@ $nrconf{override_rc} = {
     # gettys
     q(^getty@.+\.service) => 0,
 
+    # systemd --user
+    q(^user@\d+\.service) => 0,
+
     # misc
     q(^zfs-fuse) => 0,
     q(^mythtv-backend) => 0,
@@ -78,13 +102,29 @@ $nrconf{override_rc} = {
     # workaround for broken systemd-journald
     # (see also Debian Bug#771122 & #771254)
     q(^systemd-journald) => 0,
+
+    # more systemd stuff
+    # (see also Debian Bug#784238 & #784437)
+    q(^emergency\.service$) => 0,
+    q(^rescue\.service$) => 0,
+
+    # don't restart systemd-logind, see #798097
+    q(^systemd-logind) => 0,
 };
 
 # Disable interpreter scanners.
 #$nrconf{interpscan} = 0;
 
-# Disable hints on pending kernel upgrades.
+# Enable/disable hints on pending kernel upgrades:
+#  1: requires the user to acknowledge pending kernels
+#  0: disable kernel checks completely
+# -1: print kernel hints to stderr only
+<% if @disable_kernel_hints == true -%>
 $nrconf{kernelhints} = 0;
+<% else -%>
+$nrconf{kernelhints} = 1;
+<% end -%>
+
 
 # Read additional config snippets.
 if(-d q(/etc/needrestart/conf.d)) {
