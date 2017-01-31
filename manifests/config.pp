@@ -6,7 +6,15 @@ class needrestart::config inherits needrestart {
     mode    => '0644',
     content => template('needrestart/needrestart.conf.erb'),
     require => Class['needrestart::install'],
-  }
+  } ->
+
+  file {'/etc/needrestart/conf.d/':
+    ensure => 'directory',
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0755',
+    require => Class['needrestart::install'],
+  } ->
 
   file {'/etc/needrestart/conf.d/customisations.conf':
     owner   => 'root',
