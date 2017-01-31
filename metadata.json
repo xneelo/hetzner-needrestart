@@ -1,15 +1,25 @@
 {
   "name": "hetzner-needrestart",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "Hetzner (Pty) Ltd.",
   "summary": "Manages automatic restarts via the Debian needrestart package",
   "license": "Apache-2.0",
-  "source": "private",
+  "source": "https://github.com/hetznerZA/hetzner-needrestart",
   "project_page": "https://github.com/hetznerZA/hetzner-needrestart",
-  "issues_url": "devops@hetzner.co.za",
+  "issues_url": "https://github.com/hetznerZA/hetzner-needrestart/issues",
   "dependencies": [
     {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
   ],
+  "operatingsystem_support": [
+    {
+    "operatingsystem":"Debian",
+    "operatingsystemrelease":[ "7.0" ]
+    },
+    {
+    "operatingsystem": "Ubuntu",
+    "operatingsystemrelease": [ "14.04", "16.04" ]
+    }
+],
   "data_provider": null
 }
 
