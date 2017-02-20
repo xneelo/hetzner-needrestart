@@ -17,7 +17,7 @@ class needrestart(
     }
 
     'Ubuntu': {
-      if versioncmp($::lsbdistrelease, '14.04') >= 0 {
+      if versioncmp($::lsbdistrelease, '16.04') >= 0 {
         $_install = true
       }
     }
