@@ -88,3 +88,8 @@ String to specify the package name. Default value is "__needrestart__".
 ## Limitations
 Only tested on Debian 7.0 and Ubuntu >= 14.04
 
+## Testing
+Ensure you are using ruby >= 2.0.0
+`bundle`
+`bundle exec rake test`
+
