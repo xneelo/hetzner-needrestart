@@ -9,10 +9,10 @@ class needrestart::config inherits needrestart {
   } ->
 
   file {'/etc/needrestart/conf.d/':
-    ensure => 'directory',
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0755',
+    ensure  => 'directory',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
     require => Class['needrestart::install'],
   } ->
 
