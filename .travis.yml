@@ -1,0 +1,24 @@
+---
+language: ruby
+script: "bundle exec rake test"
+sudo: false
+env:
+  - PUPPET_VERSION="~> 3.7.0"
+  - PUPPET_VERSION="~> 3.8.0"
+  - PUPPET_VERSION="~> 4.1.0"
+  - PUPPET_VERSION="~> 4.2.0"
+
+rvm:
+  - 1.9.3
+  - 2.1
+  - 2.2
+
+matrix:
+  exclude:
+    - rvm: 2.2
+      env: PUPPET_VERSION="~> 3.7.0"
+    - rvm: 2.2
+      env: PUPPET_VERSION="~> 3.8.0"
+
+notifications:
+  email: false
