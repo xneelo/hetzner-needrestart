@@ -30,6 +30,16 @@
 # Path of user notification scripts.
 #$nrconf{notify_d} = '/etc/needrestart/notify.d';
 
+# If needrestart detects systemd it assumes that you use systemd's pam module.
+# This allows needrestart to easily detect user session. In case you use
+# systemd *without* pam_systemd.so you should set has_pam_systemd to false
+# to enable legacy session detection!
+<% if @has_pam_systemd == true -%>
+$nrconf{has_pam_systemd} = 1;
+<% else -%>
+#$nrconf{has_pam_systemd} = 0;
+<% end -%>
+
 # Disable sending notifications to user sessions running obsolete binaries
 # using scripts from $nrconf{notify_d}.
 #$nrconf{sendnotify} = 0;

@@ -6,4 +6,5 @@ class needrestart::params(
   $ignorelist                    = {},
   $package_ensure                = 'installed',
   $package_name                  = 'needrestart',
+  $has_pam_systemd               = false,
 ){}
