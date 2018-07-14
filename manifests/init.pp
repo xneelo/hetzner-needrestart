@@ -1,3 +1,21 @@
+#
+# main class for needrestart
+#
+# Parameters:
+# [*configs*]
+#   hash of configuration parameters to overwrite from default.
+#   Example (hiera):
+#   needrestart::configs:
+#     ui_mode: 'a'
+#     restart: 'l'
+#     defno: 0
+#     blacklist:
+#       - 'qr(^/usr/bin/sudo(\.dpkg-new)?$)'
+#       - 'qr(^/sbin/(dhclient|dhcpcd5|pump|udhcpc)(\.dpkg-new)?$)'
+#     override_rc:
+#       'qr(^dbus)': 0
+#       'qr(^gdm)': 0
+#
 class needrestart(
   $action                        = $needrestart::params::action,
   $preferred_ui                  = $needrestart::params::preferred_ui,
@@ -6,6 +24,7 @@ class needrestart(
   $notify_user_obsolete_binaries = $needrestart::params::notify_user_obsolete_binaries,
   $package_ensure                = $needrestart::params::package_ensure,
   $package_name                  = $needrestart::params::package_name,
+  $configs                       = {},
 ) inherits needrestart::params {
 
 

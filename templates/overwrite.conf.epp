@@ -1,0 +1,20 @@
+<%- | Hash $configs = {},
+| -%>
+# managed with puppet (module needrestart)
+<% $configs.each | $index, $value | { -%>
+
+<% if ( $value =~ String ) { -%>$nrconf{<%= $index %>} = '<%= $value %>';
+<% } -%>
+<% if ( $value =~ Integer ) { -%>$nrconf{<%= $index %>} = <%= $value %>;
+<% } -%>
+<% if ( $value =~ Array ) { -%>$nrconf{<%= $index %>} = [
+    <%= $value.join(",\n   ") %>,
+];
+<% } -%>
+<% if ( $value =~ Hash ) { -%>$nrconf{<%= $index %>} = {
+<% $value.each | $i, $v | { -%>
+    <%= $v %> => <%= $i %>,
+<% } -%>
+};
+<% } -%>
+<% } -%>
