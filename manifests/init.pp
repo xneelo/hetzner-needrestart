@@ -25,6 +25,7 @@ class needrestart(
   $package_ensure                = $needrestart::params::package_ensure,
   $package_name                  = $needrestart::params::package_name,
   $configs                       = {},
+  $has_pam_systemd               = $needrestart::params::has_pam_systemd,
 ) inherits needrestart::params {
 
 
