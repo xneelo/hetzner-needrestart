@@ -1,3 +1,4 @@
+#This class takes care of the package installation
 class needrestart::install inherits needrestart {
 
   package { 'needrestart':

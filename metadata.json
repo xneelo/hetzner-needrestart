@@ -8,18 +8,34 @@
   "project_page": "https://github.com/hetznerZA/hetzner-needrestart",
   "issues_url": "https://github.com/hetznerZA/hetzner-needrestart/issues",
   "dependencies": [
-    {"name":"puppetlabs-stdlib","version_requirement":">= 4.0.0"}
+    {
+      "name": "puppetlabs-stdlib",
+      "version_requirement": ">= 4.13.1 < 5.0.0"
+    }
   ],
   "operatingsystem_support": [
     {
-    "operatingsystem":"Debian",
-    "operatingsystemrelease":[ "7.0", "8.0", "9.0" ]
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "7.0",
+        "8.0",
+        "9.0"
+      ]
     },
     {
-    "operatingsystem": "Ubuntu",
-    "operatingsystemrelease": [ "16.04" ]
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "16.04"
+      ]
     }
-],
-  "data_provider": null
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 4.7.0 < 6.0.0"
+    }
+  ],
+  "pdk-version": "1.7.0",
+  "template-url": "file:///opt/puppetlabs/pdk/share/cache/pdk-templates.git",
+  "template-ref": "1.7.0-0-g57412ed"
 }
-

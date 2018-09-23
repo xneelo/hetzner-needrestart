@@ -1,4 +1,3 @@
-#
 # main class for needrestart
 #
 # Parameters:
@@ -15,7 +14,6 @@
 #     override_rc:
 #       'qr(^dbus)': 0
 #       'qr(^gdm)': 0
-#
 class needrestart(
   $package_ensure                = $needrestart::params::package_ensure,
   $package_name                  = $needrestart::params::package_name,

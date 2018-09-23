@@ -12,11 +12,11 @@ class needrestart::config inherits needrestart {
     require => Class['needrestart::install'],
     purge   => true,
     recurse => true,
-  } ->
+  }
 
   file {'/etc/needrestart/conf.d/README.needrestart':
-    require => Class['needrestart::install'],
-  } ->
+    require => [File['/etc/needrestart/conf.d/'],Class['needrestart::install']],
+  }
 
   file {'/etc/needrestart/conf.d/overrides.conf':
     owner   => 'root',
