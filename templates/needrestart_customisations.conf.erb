@@ -4,7 +4,7 @@
 <% @ignorelist.each do | name, services | -%>
 #<%= name %>
 <% services.sort.each do | service | -%>
-$nrconf{override_rc}->{q(^<%= service %>)} = 0;
+$nrconf{override_rc}->{qr(^<%= service %>)} = 0;
 <% end -%>
 
 <% end -%>
