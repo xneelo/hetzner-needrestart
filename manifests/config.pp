@@ -1,26 +1,8 @@
 #
 # class to configure needrestart
 #
-# Parameters:
 #
-# [*overwrite_default_conf*]
-#  set this to false if you do not want to overwrite
-#  needrestart.conf installed from the package maintainer.
-#  defaults to true.
-#
-class needrestart::config (
-  $overwrite_default_conf = true,
-) inherits needrestart {
-
-  if $overwrite_default_conf {
-    file {'/etc/needrestart/needrestart.conf':
-      owner   => 'root',
-      group   => 'root',
-      mode    => '0644',
-      content => template('needrestart/needrestart.conf.erb'),
-      require => Class['needrestart::install'],
-    }
-  }
+class needrestart::config inherits needrestart {
 
   file {'/etc/needrestart/conf.d/':
     ensure  => 'directory',
@@ -36,11 +18,11 @@ class needrestart::config (
     require => Class['needrestart::install'],
   } ->
 
-  file {'/etc/needrestart/conf.d/overwrite.conf':
+  file {'/etc/needrestart/conf.d/overrides.conf':
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    content => epp('needrestart/overwrite.conf', { 'configs' => $needrestart::configs }),
+    content => epp('needrestart/overrides.conf', { 'configs' => $needrestart::configs }),
     require => Class['needrestart::install'],
   }
 }
