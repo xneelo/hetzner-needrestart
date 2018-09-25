@@ -1,8 +1,8 @@
 #
 # class to configure needrestart
 #
-#
-class needrestart::config inherits needrestart {
+class needrestart::config ( $config_overrides = lookup('needrestart::configs', Hash, 'deep', { 'default_value' => $needrestart::configs})
+  ) inherits needrestart {
 
   file {'/etc/needrestart/conf.d/':
     ensure  => 'directory',
@@ -22,7 +22,7 @@ class needrestart::config inherits needrestart {
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    content => epp('needrestart/overrides.conf', { 'configs' => $needrestart::configs }),
+    content => epp('needrestart/overrides.conf', { 'configs' => $config_overrides }),
     require => [File['/etc/needrestart/conf.d/'],Class['needrestart::install']],
   }
 }
