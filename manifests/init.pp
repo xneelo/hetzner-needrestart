@@ -1,4 +1,3 @@
-#
 # main class for needrestart
 #
 # Parameters:
@@ -15,17 +14,10 @@
 #     override_rc:
 #       'qr(^dbus)': 0
 #       'qr(^gdm)': 0
-#
 class needrestart(
-  $action                        = $needrestart::params::action,
-  $preferred_ui                  = $needrestart::params::preferred_ui,
-  $ignorelist                    = $needrestart::params::ignorelist,
-  $disable_kernel_hints          = $needrestart::params::disable_kernel_hints,
-  $notify_user_obsolete_binaries = $needrestart::params::notify_user_obsolete_binaries,
   $package_ensure                = $needrestart::params::package_ensure,
   $package_name                  = $needrestart::params::package_name,
   $configs                       = {},
-  $has_pam_systemd               = $needrestart::params::has_pam_systemd,
 ) inherits needrestart::params {
 
 
