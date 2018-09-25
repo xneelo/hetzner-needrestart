@@ -23,6 +23,6 @@ class needrestart::config inherits needrestart {
     group   => 'root',
     mode    => '0644',
     content => epp('needrestart/overrides.conf', { 'configs' => $needrestart::configs }),
-    require => Class['needrestart::install'],
+    require => [File['/etc/needrestart/conf.d/'],Class['needrestart::install']],
   }
 }
