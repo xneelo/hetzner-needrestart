@@ -12,6 +12,10 @@ test_content = <<~CONTENT
   $nrconf{default_value} = {
       restart = 'l';
       defno = 0;
+      blacklist = [
+          qr(^/usr/bin/sudo(\\.dpkg-new)?$),
+          qr(^/sbin/(dhclient|dhcpcd5|pump|udhcpc)(\\.dpkg-new)?$)
+      ];
   };
   CONTENT
 
@@ -32,7 +36,13 @@ describe 'needrestart' do
 
   context 'with config values on Debian' do
     let(:facts) { { operatingsystem: 'Debian' } }
-    let(:params) { {'configs' => { 'restart' => 'l', 'defno' => 0 } } }
+    let(:params) { {'configs' => {
+        'restart' => 'l',
+        'defno' => 0,
+        'blacklist' => [
+            'qr(^/usr/bin/sudo(\.dpkg-new)?$)',
+            'qr(^/sbin/(dhclient|dhcpcd5|pump|udhcpc)(\.dpkg-new)?$)',
+        ]} } }
 
     it { is_expected.to contain_class('needrestart') }
     it { is_expected.to contain_file('/etc/needrestart/conf.d/').with(
@@ -56,7 +66,13 @@ describe 'needrestart' do
 
   context 'with config values on Ubuntu 18.04' do
     let(:facts) { { operatingsystem: 'Ubuntu', lsbdistrelease: '18.04' } }
-    let(:params) { {'configs' => { 'restart' => 'l', 'defno' => 0 } } }
+    let(:params) { {'configs' => {
+        'restart' => 'l',
+        'defno' => 0,
+        'blacklist' => [
+            'qr(^/usr/bin/sudo(\.dpkg-new)?$)',
+            'qr(^/sbin/(dhclient|dhcpcd5|pump|udhcpc)(\.dpkg-new)?$)',
+        ]} } }
 
     it { is_expected.to contain_class('needrestart') }
     it { is_expected.to contain_package('needrestart') }
