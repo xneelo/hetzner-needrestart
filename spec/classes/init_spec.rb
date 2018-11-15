@@ -21,6 +21,8 @@ describe 'needrestart' do
     let(:facts) { { operatingsystem: 'Debian' } }
 
     it { is_expected.to contain_class('needrestart') }
+    it { is_expected.to contain_class('needrestart::install') }
+    it { is_expected.to contain_class('needrestart::config') }
     it { is_expected.to contain_package('needrestart') }
     it { is_expected.to contain_file('/etc/needrestart/conf.d/').with(
       'ensure' => 'directory') }
@@ -43,6 +45,8 @@ describe 'needrestart' do
     let(:facts) { { operatingsystem: 'Ubuntu', lsbdistrelease: '16.04' } }
 
     it { is_expected.to contain_class('needrestart') }
+    it { is_expected.to contain_class('needrestart::install') }
+    it { is_expected.to contain_class('needrestart::config') }
     it { is_expected.to contain_package('needrestart') }
     it { is_expected.to contain_file('/etc/needrestart/conf.d/').with(
       'ensure' => 'directory') }
@@ -77,6 +81,13 @@ describe 'needrestart' do
 
     it { is_expected.to contain_package('needrestart').with(
       'ensure' => 'absent')}
+  end
+
+  context 'unsupported os' do
+    let(:facts) { { operatingsystem: 'UnsupportedOs' } }
+    it { is_expected.to contain_class('needrestart') }
+    it { is_expected.not_to contain_class('needrestart::install') }
+    it { is_expected.not_to contain_class('needrestart::config') }
   end
 
 end
