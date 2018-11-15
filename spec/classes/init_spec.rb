@@ -62,4 +62,21 @@ describe 'needrestart' do
       'content' => test_content) }
   end
 
+  context 'with different package name' do
+    package_name = 'needrestart_pkg'
+    let(:facts) { { operatingsystem: 'Debian' } }
+    let(:params) { { 'package_name' => package_name, } }
+
+    it { is_expected.to contain_package('needrestart').with(
+      'name' => package_name)}
+  end
+
+  context 'with package removed' do
+    let(:facts) { { operatingsystem: 'Debian' } }
+    let(:params) { { 'package_ensure' => 'absent' } }
+
+    it { is_expected.to contain_package('needrestart').with(
+      'ensure' => 'absent')}
+  end
+
 end
