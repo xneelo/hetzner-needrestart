@@ -25,4 +25,5 @@ class needrestart::config ( $config_overrides = lookup('needrestart::configs', H
     content => epp('needrestart/overrides.conf', { 'configs' => $config_overrides }),
     require => [File['/etc/needrestart/conf.d/'],Class['needrestart::install']],
   }
+notify {"config ${config_overrides}":}
 }
