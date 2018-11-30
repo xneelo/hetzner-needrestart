@@ -44,4 +44,5 @@ class needrestart(
     include needrestart::install
     include needrestart::config
   }
+notify {"Config ${configs}":}
 }
