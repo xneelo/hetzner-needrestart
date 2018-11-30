@@ -11,6 +11,9 @@
 example 1
     <%= $value.join(",\n   ") %>,
     <%= $value %>,
+    <% $value.each | $x | { -%>
+       <%= $x %>,
+    <% } -%>
 ];
 <% } -%>
 <% if ( $value =~ Hash ) { -%>$nrconf{<%= $index %>} = {
