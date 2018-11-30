@@ -8,8 +8,8 @@
 <% if ( $value =~ Integer ) { -%>$nrconf{<%= $index %>} = <%= $value %>;
 <% } -%>
 <% if ( $value =~ Array ) { -%>$nrconf{<%= $index %>} = [
-    <% $value.each | $x | { -%>
-       <%= $x %>,
+    <% $value.each | $x | {" -%>
+       <%= $x" %>,
     <% } -%>
 ];
 <% } -%>
