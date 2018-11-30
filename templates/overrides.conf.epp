@@ -8,15 +8,18 @@
 <% if ( $value =~ Integer ) { -%>$nrconf{<%= $index %>} = <%= $value %>;
 <% } -%>
 <% if ( $value =~ Array ) { -%>$nrconf{<%= $index %>} = [
+example 1
     <%= $value.join(",\n   ") %>,
 ];
 <% } -%>
 <% if ( $value =~ Hash ) { -%>$nrconf{<%= $index %>} = {
+example 2
 <% $value.each | $i, $v | { -%>
     <%- if ( $v =~ String ) { -%>
     <%= $i %> = '<%= $v %>';
     <%- } elsif ( $v =~ Array ) { -%>
     <%= $i %> = [
+example 3
         <%= $v.join(",\n        ") %>
     ];
     <%- } else { -%>
