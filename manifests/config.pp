@@ -1,7 +1,7 @@
 #
 # class to configure needrestart
 #
-class needrestart::config ( $config_overrides = lookup('needrestart::configs', Hash, 'deep', { 'default_value' => $needrestart::configs})
+class needrestart::config ( $config_overrides = lookup('needrestart::configs', Hash, 'deep', $needrestart::configs)
   ) inherits needrestart {
 
   file {'/etc/needrestart/conf.d/':
