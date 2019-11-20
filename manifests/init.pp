@@ -43,7 +43,7 @@ class needrestart(
   if $_install {
     include needrestart::install
     class { 'needrestart::config':
-      configs => $configs,
+      config_overrides => $configs,
     }
   }
 }
