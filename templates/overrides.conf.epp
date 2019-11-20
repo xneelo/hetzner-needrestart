@@ -7,9 +7,6 @@
 <% } -%>
 <% if ( $value =~ Integer ) { -%>$nrconf{<%= $index %>} = <%= $value %>;
 <% } -%>
-=========
-<%= $value %>
-========
 <% if ( $value =~ Array ) { -%>$nrconf{<%= $index %>} = [
     <%= $value.join(",\n   ") %>,
 ];
