@@ -15,12 +15,12 @@
 <% $value.each | $i, $v | { -%>
     <%- if ( $v =~ String ) { -%>
     <%= $i %> =  '<%= $v %>';
-    <%- } elsif NOT_A_STRING( $v =~ Array ) { -%>
+    <%- } elsif ( $v =~ Array ) { -%>
     <%= $i %> = [
         <%= $v.join(",\n        ") %>
     ];
     <%- } else { -%>
-    <%= $i %> = <%= $v %>;
+    <%= $i %> = NOT a STRING <%= $v %>;
     <%- } -%>
 <% } -%>
 };
