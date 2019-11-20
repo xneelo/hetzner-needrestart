@@ -17,7 +17,7 @@
     <%= $i %> =  'STRING <%= $v %>';
     <%- } elsif ( $v =~ Array ) { -%>
     <%= $i %> = [
-        <%= $v.join("ARRAY ,\n        ") %>
+        <%= $v.join(",\n        ") %>
     ];
     <%- } else { -%>
     <%= $i %> = NOT a STRING <%= $v %>;
