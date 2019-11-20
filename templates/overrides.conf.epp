@@ -14,10 +14,10 @@
 <% if ( $value =~ Hash ) { -%>$nrconf{<%= $index %>} = {
 <% $value.each | $i, $v | { -%>
     <%- if ( $v =~ String ) { -%>
-    <%= $i %> =  '<%= $v %>';
+    <%= $i %> =  'STRING <%= $v %>';
     <%- } elsif ( $v =~ Array ) { -%>
     <%= $i %> = [
-        <%= $v.join(",\n        ") %>
+        <%= $v.join("ARRAY ,\n        ") %>
     ];
     <%- } else { -%>
     <%= $i %> = NOT a STRING <%= $v %>;
