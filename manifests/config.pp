@@ -2,7 +2,7 @@
 # class to configure needrestart
 #
 class needrestart::config (
-  $config_overrides = lookup('needrestart::configs', Hash, 'deep', { 'default_value' => $needrestart::configs})
+  Array $config_overrides
   )
 
   inherits needrestart {
