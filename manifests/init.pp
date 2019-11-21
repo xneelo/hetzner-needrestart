@@ -2,7 +2,7 @@
 #
 # Parameters:
 # [*configs*]
-#   hash of configuration parameters.
+#   hash of configuration parameters to overwrite from default.
 #   Example (hiera):
 #   needrestart::configs:
 #     ui_mode: 'a'
@@ -19,6 +19,7 @@ class needrestart(
   $package_ensure                = $needrestart::params::package_ensure,
   $package_name                  = $needrestart::params::package_name,
 ) inherits needrestart::params {
+
 
   $install = false
 
