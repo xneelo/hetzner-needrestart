@@ -20,7 +20,6 @@ class needrestart(
   $package_name                  = $needrestart::params::package_name,
 ) inherits needrestart::params {
 
-
   $install = false
 
   case $::operatingsystem {
@@ -39,7 +38,6 @@ class needrestart(
       notice ("Your operating system ${::operatingsystem} is not supported by this module")
     }
   }
-
 
   if $_install {
     include needrestart::install
