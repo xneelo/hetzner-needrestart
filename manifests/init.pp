@@ -15,11 +15,10 @@
 #       'qr(^dbus)': 0
 #       'qr(^gdm)': 0
 class needrestart(
+  Hash $configs                  = {},
   $package_ensure                = $needrestart::params::package_ensure,
   $package_name                  = $needrestart::params::package_name,
-  $configs                       = {},
 ) inherits needrestart::params {
-
 
   $install = false
 
@@ -42,6 +41,21 @@ class needrestart(
 
   if $_install {
     include needrestart::install
-    include needrestart::config
+
+    file {'/etc/needrestart/conf.d/':
+      ensure  => 'directory',
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0755',
+      require => Class['needrestart::install'],
+      purge   => true,
+      recurse => true,
+    }
+
+    unless $configs == {} {
+      class { 'needrestart::config':
+        config_overrides => $configs,
+      }
+    }
   }
 }
