@@ -23,7 +23,7 @@ Once installed, needrestart hooks into package management and init systems. For 
 
 ## Usage
 By default, calling the init class will install the relevant package using the default configuration options.
-Overriding configuration is done via hieradata by mapping the relevant config keys as follows:
+Overriding configuration is done by passing a Hash to needrestart::configs or via hieradata by mapping the relevant config keys as follows:
 ```
 ---
 needrestart::configs:

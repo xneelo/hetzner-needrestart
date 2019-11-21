@@ -2,7 +2,7 @@
 #
 # Parameters:
 # [*configs*]
-#   hash of configuration parameters to overwrite from default.
+#   hash of configuration parameters.
 #   Example (hiera):
 #   needrestart::configs:
 #     ui_mode: 'a'
@@ -15,7 +15,7 @@
 #       'qr(^dbus)': 0
 #       'qr(^gdm)': 0
 class needrestart(
-  Hash $configs,
+  Hash $configs                  = {},
   $package_ensure                = $needrestart::params::package_ensure,
   $package_name                  = $needrestart::params::package_name,
 ) inherits needrestart::params {
@@ -41,8 +41,21 @@ class needrestart(
 
   if $_install {
     include needrestart::install
-    class { 'needrestart::config':
-      config_overrides => $configs,
+
+    file {'/etc/needrestart/conf.d/':
+      ensure  => 'directory',
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0755',
+      require => Class['needrestart::install'],
+      purge   => true,
+      recurse => true,
+    }
+
+    unless $configs != {} {
+      class { 'needrestart::config':
+        config_overrides => $configs,
+      }
     }
   }
 }
