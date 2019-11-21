@@ -4,10 +4,6 @@
 class needrestart::config ( Hash $config_overrides
   ){
 
-  file {'/etc/needrestart/conf.d/README.needrestart':
-    require => [File['/etc/needrestart/conf.d/'],Class['needrestart::install']],
-  }
-
   file {'/etc/needrestart/conf.d/overrides.conf':
     owner   => 'root',
     group   => 'root',

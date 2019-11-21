@@ -39,6 +39,8 @@ class needrestart(
     }
   }
 
+  notify {"Configs are: ${configs}":}
+
   if $_install {
     include needrestart::install
 
