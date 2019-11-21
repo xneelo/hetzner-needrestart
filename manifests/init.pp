@@ -52,6 +52,8 @@ class needrestart(
       recurse => true,
     }
 
+    notify{"Configs are: ${configs}":}
+
     unless $configs == {} {
       class { 'needrestart::config':
         config_overrides => $configs,
