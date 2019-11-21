@@ -51,6 +51,9 @@ class needrestart(
       purge   => true,
       recurse => true,
     }
+    file { '/etc/needrestart/conf.d/README.needrestart':
+      ensure => 'present',
+    }
 
     unless $configs == {} {
       class { 'needrestart::config':
