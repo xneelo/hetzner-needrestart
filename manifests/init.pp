@@ -17,7 +17,7 @@
 class needrestart(
   $package_ensure                = $needrestart::params::package_ensure,
   $package_name                  = $needrestart::params::package_name,
-  $configs                       = {},
+  $configs                       = lookup('needrestart::configs', Hash, 'deep', { 'default_value' =>  {} })
 ) inherits needrestart::params {
 
   $install = false
