@@ -1,6 +1,6 @@
 {
   "name": "hetzner-needrestart",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "author": "Hetzner (Pty) Ltd.",
   "summary": "Manages automatic restarts via the Debian needrestart package",
   "license": "Apache-2.0",
