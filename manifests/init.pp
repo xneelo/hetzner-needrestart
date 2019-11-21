@@ -20,7 +20,6 @@ class needrestart(
   $configs                       = {},
 ) inherits needrestart::params {
 
-
   $install = false
 
   case $::operatingsystem {
@@ -42,7 +41,6 @@ class needrestart(
 
   if $_install {
     include needrestart::install
-    #include needrestart::config
     class { 'needrestart::config':
       config_overrides => $configs,
     }
