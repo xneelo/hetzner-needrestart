@@ -15,9 +15,9 @@
 #       'qr(^dbus)': 0
 #       'qr(^gdm)': 0
 class needrestart(
+  Hash $configs,
   $package_ensure                = $needrestart::params::package_ensure,
   $package_name                  = $needrestart::params::package_name,
-  $configs                       = {},
 ) inherits needrestart::params {
 
   $install = false
