@@ -39,6 +39,7 @@ class needrestart(
     }
   }
 
+
   if $_install {
     include needrestart::install
 
@@ -51,8 +52,6 @@ class needrestart(
       purge   => true,
       recurse => true,
     }
-
-    notify{"Configs are: ${configs}":}
 
     unless $configs == {} {
       class { 'needrestart::config':
