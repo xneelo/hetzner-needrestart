@@ -11,18 +11,17 @@
     <%= $value.join(",\n   ") %>,
 ];
 <% } -%>
-<% if ( $value =~ Hash ) { -%>$nrconf{<%= $index %>} = {
+<% if ( $value =~ Hash ) { -%>
 <% $value.each | $i, $v | { -%>
     <%- if ( $v =~ String ) { -%>
-    <%= $i %> => '<%= $v %>',
+    $nrconf{<%= $index %>}{<%= $i %>} = '<%= $v %>',
     <%- } elsif ( $v =~ Array ) { -%>
-    <%= $i %> = [
+    $nrconf{<%= $index %>}{<%= $i %>} = [
         <%= $v.join(",\n        ") %>
     ];
     <%- } else { -%>
-    <%= $i %> => <%= $v %>,
+    $nrconf{<%= $index %>}{<%= $i %>} = <%= $v %>,
     <%- } -%>
 <% } -%>
-};
 <% } -%>
 <% } -%>
