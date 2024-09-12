@@ -1,10 +1,11 @@
 #
 # class to configure needrestart
 #
-class needrestart::config ( Hash $config_overrides
-  ){
-
-  file {'/etc/needrestart/conf.d/overrides.conf':
+# @param config_overrides - Hash of configuration overrides
+class needrestart::config (
+  Hash $config_overrides
+) {
+  file { '/etc/needrestart/conf.d/overrides.conf':
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
