@@ -16,10 +16,16 @@
 #       'qr(^gdm)': 0
 # @param package_ensure - Package ensure value
 # @param package_name - Package name
+# @param purge_ignore
+#   file to ignore from purging in directory
+#   /etc/needrestart/conf.d/
+#   this allows to whitelist files installed by packages.
+#
 class needrestart (
   Hash $configs                  = {},
   String $package_ensure                = $needrestart::params::package_ensure,
   String $package_name                  = $needrestart::params::package_name,
+  Optional[Array[String[1]]] $purge_ignore        = undef,
 ) inherits needrestart::params {
   $install = false
 
@@ -51,6 +57,7 @@ class needrestart (
       require => Class['needrestart::install'],
       purge   => true,
       recurse => true,
+      ignore  => $purge_ignore,
     }
     file { '/etc/needrestart/conf.d/README.needrestart':
       ensure => 'file',
