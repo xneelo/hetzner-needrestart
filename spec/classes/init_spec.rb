@@ -1,22 +1,16 @@
 require 'spec_helper'
-default_content = <<-CONTENT
-# managed with puppet (module needrestart)
 
-$nrconf{default_value} = {
-};
-CONTENT
+test_content = <<~CONTENT
+  # managed with puppet (module needrestart)
 
-test_content = <<-CONTENT
-# managed with puppet (module needrestart)
+  $nrconf{restart} = 'l';
 
-$nrconf{default_value} = {
-    restart = 'l';
-    defno = 0;
-    blacklist = [
-        qr(^/usr/bin/sudo(\\.dpkg-new)?$),
-        qr(^/sbin/(dhclient|dhcpcd5|pump|udhcpc)(\\.dpkg-new)?$)
-    ];
-};
+  $nrconf{defno} = 0;
+
+  $nrconf{blacklist} = [
+      qr(^/usr/bin/sudo(\\.dpkg-new)?$),
+     qr(^/sbin/(dhclient|dhcpcd5|pump|udhcpc)(\\.dpkg-new)?$),
+  ];
 CONTENT
 
 describe 'needrestart' do
@@ -30,18 +24,14 @@ describe 'needrestart' do
         context 'with default values for all parameters' do
           it { is_expected.to contain_class('needrestart') }
           it { is_expected.to contain_class('needrestart::install') }
-          it { is_expected.to contain_class('needrestart::config') }
+          it { is_expected.not_to contain_class('needrestart::config') }
           it { is_expected.to contain_package('needrestart') }
           it {
             is_expected.to contain_file('/etc/needrestart/conf.d/').with(
               'ensure' => 'directory',
             )
           }
-          it {
-            is_expected.to contain_file('/etc/needrestart/conf.d/overrides.conf').with(
-              'content' => default_content,
-            )
-          }
+          it { is_expected.not_to contain_file('/etc/needrestart/conf.d/overrides.conf') }
         end
 
         context 'with config values' do
@@ -59,6 +49,7 @@ describe 'needrestart' do
           end
 
           it { is_expected.to contain_class('needrestart') }
+          it { is_expected.to contain_class('needrestart::config') }
           it {
             is_expected.to contain_file('/etc/needrestart/conf.d/').with(
               'ensure' => 'directory',
