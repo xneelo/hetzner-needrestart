@@ -89,7 +89,12 @@ describe 'needrestart' do
   context 'unsupported os' do
     let(:facts) do
       {
-        operatingsystem: 'UnsupportedOs',
+        os: {
+          'name' => 'UnsupportedOs',
+          'family' => 'UnsupportedFamily',
+          'release' => { 'major' => '1', 'full' => '1.0' },
+          'distro' => { 'release' => { 'full' => '1.0' } },
+        },
       }
     end
 
